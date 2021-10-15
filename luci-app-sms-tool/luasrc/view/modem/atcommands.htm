@@ -5,10 +5,10 @@
 -- Licensed to the GNU General Public License v3.0.
 -->
 
-<h2><%:AT Commands%></h2>
-	<label><%:Web UI for handling AT commands via sms_tool.%></label>
+<h2 name="content"><%:AT Commands%></h2>
+	<div class="cbi-map-descr"><%:Web UI for handling AT commands via sms_tool.%></div>
 	<p></p>
-	<h4><%:Sending commands to modem%></h4>
+	<h4><br/></h4>
 	<div class="table" width="100%">
 
 		<div class="tr">
@@ -45,7 +45,7 @@
 window.onload = function readUSER() {
 
 
-			XHR.get('<%=luci.dispatcher.build_url("admin", "modem", "sms", "user_atc")%>', null,
+			XHR.get('<%=luci.dispatcher.build_url("admin", "services", "sms", "user_atc")%>', null,
 			function(x, json)
 			{
 				select = document.getElementById('pl');
@@ -86,7 +86,7 @@ function copyFunction() {
 
 
 function postcmd(cmd) {
-    (new XHR()).post("<%=luci.dispatcher.build_url("admin", "modem", "sms", "run_at")%>", {"code":cmd}, function(x) {
+    (new XHR()).post("<%=luci.dispatcher.build_url("admin", "services", "sms", "run_at")%>", {"code":cmd}, function(x) {
         console.log(x.response)
         console.log(x)
 

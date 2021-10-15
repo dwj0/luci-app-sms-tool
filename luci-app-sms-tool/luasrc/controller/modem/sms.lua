@@ -14,23 +14,22 @@
 module("luci.controller.modem.sms", package.seeall)
 
 function index()
-	entry({"admin", "modem"}, firstchild(), "Modem", 30).dependent=false
-	entry({"admin", "modem", "sms"}, alias("admin", "modem", "sms", "readsms"), translate("SMS Messages"), 20).acl_depends={ "luci-app-sms-tool" }
-	entry({"admin", "modem", "sms", "readsms"},template("modem/readsms"),translate("Received Messages"), 10)
- 	entry({"admin", "modem", "sms", "sendsms"},template("modem/sendsms"),translate("Send Messages"), 20)
- 	entry({"admin", "modem", "sms", "ussd"},template("modem/ussd"),translate("USSD Codes"), 30)
-	entry({"admin", "modem", "sms", "atcommands"},template("modem/atcommands"),translate("AT Commands"), 40)
-	entry({"admin", "modem", "sms", "smsconfig"},cbi("modem/smsconfig"),translate("Configuration"), 50)
-	entry({"admin", "modem", "sms", "delete_one"}, call("delete_sms", smsindex), nil).leaf = true
-	entry({"admin", "modem", "sms", "delete_all"}, call("delete_all_sms"), nil).leaf = true
-	entry({"admin", "modem", "sms", "run_ussd"}, call("ussd"), nil).leaf = true
-	entry({"admin", "modem", "sms", "run_at"}, call("at"), nil).leaf = true
-	entry({"admin", "modem", "sms", "run_sms"}, call("sms"), nil).leaf = true
-	entry({"admin", "modem", "sms", "readsim"}, call("slots"), nil).leaf = true
-	entry({"admin", "modem", "sms", "countsms"}, call("count_sms"), nil).leaf = true
-	entry({"admin", "modem", "sms", "user_ussd"}, call("userussd"), nil).leaf = true
-	entry({"admin", "modem", "sms", "user_atc"}, call("useratc"), nil).leaf = true
-	entry({"admin", "modem", "sms", "user_phonebook"}, call("userphb"), nil).leaf = true
+	entry({"admin", "services", "sms"}, alias("admin", "services", "sms", "readsms"), translate("SMS Messages"), 20).acl_depends={ "luci-app-sms-tool" }
+	entry({"admin", "services", "sms", "readsms"},template("modem/readsms"),translate("Received Messages"), 10)
+ 	entry({"admin", "services", "sms", "sendsms"},template("modem/sendsms"),translate("Send Messages"), 20)
+ 	entry({"admin", "services", "sms", "ussd"},template("modem/ussd"),translate("USSD Codes"), 30)
+	entry({"admin", "services", "sms", "atcommands"},template("modem/atcommands"),translate("AT Commands"), 40)
+	entry({"admin", "services", "sms", "smsconfig"},cbi("modem/smsconfig"),translate("Configuration"), 50)
+	entry({"admin", "services", "sms", "delete_one"}, call("delete_sms", smsindex), nil).leaf = true
+	entry({"admin", "services", "sms", "delete_all"}, call("delete_all_sms"), nil).leaf = true
+	entry({"admin", "services", "sms", "run_ussd"}, call("ussd"), nil).leaf = true
+	entry({"admin", "services", "sms", "run_at"}, call("at"), nil).leaf = true
+	entry({"admin", "services", "sms", "run_sms"}, call("sms"), nil).leaf = true
+	entry({"admin", "services", "sms", "readsim"}, call("slots"), nil).leaf = true
+	entry({"admin", "services", "sms", "countsms"}, call("count_sms"), nil).leaf = true
+	entry({"admin", "services", "sms", "user_ussd"}, call("userussd"), nil).leaf = true
+	entry({"admin", "services", "sms", "user_atc"}, call("useratc"), nil).leaf = true
+	entry({"admin", "services", "sms", "user_phonebook"}, call("userphb"), nil).leaf = true
 end
 
 

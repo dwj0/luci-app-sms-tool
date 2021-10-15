@@ -1,6 +1,7 @@
 <%
 	local util = require "luci.util"
 	local sys = require "luci.sys"
+	local uci = require "luci.model.uci".cursor()
 
 	local pon = tostring(uci:get("sms_tool", "general", "prefix"))
 	local pnumber = tostring(uci:get("sms_tool", "general", "pnumber"))
@@ -51,7 +52,7 @@ window.onload = function prefiksSMS() {
 
 
 
-XHR.get('<%=luci.dispatcher.build_url("admin", "modem", "sms", "user_phonebook")%>', null,
+XHR.get('<%=luci.dispatcher.build_url("admin", "services", "sms", "user_phonebook")%>', null,
 			function(x, json)
 			{
 				select = document.getElementById('pb');
@@ -80,10 +81,7 @@ XHR.get('<%=luci.dispatcher.build_url("admin", "modem", "sms", "user_phonebook")
 
 			}
 			);
-
-
-
-
+			
 }
 
 
@@ -92,7 +90,6 @@ function copyFunction2() {
  	var x = document.getElementById("pb").value;
      	document.getElementById("numer").value = x;
      	document.getElementById("odp").innerHTML = "";
-
 
 }
 
@@ -123,7 +120,7 @@ function codsp() {
 
 
 function postcmd(cmd) {
-    (new XHR()).post("<%=luci.dispatcher.build_url("admin", "modem", "sms", "run_sms")%>", {"scode":cmd}, function(x) {
+    (new XHR()).post("<%=luci.dispatcher.build_url("admin", "services", "sms", "run_sms")%>", {"scode":cmd}, function(x) {
         console.log(x.response)
         console.log(x)
 	 	var cut = x.response;
@@ -188,11 +185,12 @@ document.addEventListener('DOMContentLoaded', function (ev) {var button = docume
 //]]></script>
 
 
-<h2><%:SMS Messages%></h2>
-	<label><%:Web UI for handling messages via sms_tool.%></label>
-	<p></p>
-	
-	<h4><%:Send Messages%></h4>
+<h2 name="content"><%:SMS Messages%></h2>
+	<div class="cbi-map-descr"><%:Web UI for sending messages via sms_tool.%></div>
+	<div class="cbi-map-descr"><%:The phone number should be preceded by the country prefix (for Poland it is 48, without '+'). If the number is 5, 4 or 3 characters, it is treated as 'short' and should not be preceded by a country prefix.%></div>
+	<p></p>	
+	<h4><br/></h4>
+
 
 	<div class="table" width="100%">
 

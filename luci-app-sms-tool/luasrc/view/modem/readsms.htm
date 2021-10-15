@@ -10,7 +10,7 @@
 
 	local smsmem = tostring(uci:get("sms_tool", "general", "storage"))
 
-	local sms = tostring(luci.sys.exec("sms_tool -s" .. smsmem .. " -d " .. devv .. " -f '%Y-%m-%d %H:%M' -j recv 2>/dev/null"))
+	local sms = tostring(luci.sys.exec("sms_tool -s" .. smsmem .. " -d " .. devv .. " -f '%Y-%m-%d %H:%M:%S' -j recv 2>/dev/null"))
 	local smsmer = tostring(uci:get("sms_tool", "general", "mergesms"))
 	local smscuta = string.sub (sms, 8)
 	local smscut = smscuta:sub(1, #smscuta - 2)
@@ -67,7 +67,7 @@ tr:nth-child(odd) {background-color: #f5f5f5;}
 
 	window.onload = function readSMS() {
 
-			XHR.get('<%=luci.dispatcher.build_url("admin", "modem", "sms", "readsim")%>', null,
+			XHR.get('<%=luci.dispatcher.build_url("admin", "services", "sms", "readsim")%>', null,
 			function(x, sim)
 			{
 			var vn = parseInt(sim.use) || 0;
@@ -188,7 +188,7 @@ if (document.querySelectorAll('input[name="smsn"]:checked').length === document.
             		smsTable.deleteRow(i);}
 
 
-		XHR.get('<%=luci.dispatcher.build_url("admin", "modem", "sms", "delete_all")%>/' , null,
+		XHR.get('<%=luci.dispatcher.build_url("admin", "services", "sms", "delete_all")%>/' , null,
 
 			function()
 			{
@@ -196,7 +196,7 @@ if (document.querySelectorAll('input[name="smsn"]:checked').length === document.
 			}
 		);
 
-		XHR.get('<%=luci.dispatcher.build_url("admin", "modem", "sms", "countsms")%>/' , null,
+		XHR.get('<%=luci.dispatcher.build_url("admin", "services", "sms", "countsms")%>/' , null,
 
 			function()
 			{
@@ -223,7 +223,7 @@ if (document.querySelectorAll('input[name="smsn"]:checked').length === document.
 
 	if (confirm("<%:Delete selected message(s)?%>")) {
 
-		XHR.get('<%=luci.dispatcher.build_url("admin", "modem", "sms", "delete_one")%>/' + smsindex, null,
+		XHR.get('<%=luci.dispatcher.build_url("admin", "services", "sms", "delete_one")%>/' + smsindex, null,
 
 			function()
 			{
@@ -240,7 +240,7 @@ if (document.querySelectorAll('input[name="smsn"]:checked').length === document.
   			}
         		}
 
-		XHR.get('<%=luci.dispatcher.build_url("admin", "modem", "sms", "readsim")%>', null,
+		XHR.get('<%=luci.dispatcher.build_url("admin", "services", "sms", "readsim")%>', null,
 			function(x, sim)
 			{
 			var vn = parseInt(sim.use) || 0;
@@ -254,7 +254,7 @@ if (document.querySelectorAll('input[name="smsn"]:checked').length === document.
 
 		);
 
-		XHR.get('<%=luci.dispatcher.build_url("admin", "modem", "sms", "countsms")%>/' , null,
+		XHR.get('<%=luci.dispatcher.build_url("admin", "services", "sms", "countsms")%>/' , null,
 
 			function()
 			{
@@ -271,10 +271,10 @@ if (document.querySelectorAll('input[name="smsn"]:checked').length === document.
 //]]></script>
 
 
-<h2><%:SMS Messages%></h2>
-	<label><%:Web UI for handling messages via sms_tool.%></label>
+<h2 name="content"><%:SMS Messages%></h2>
+	<div class="cbi-map-descr"><%:Web UI for receiveling messages via sms_tool.%></div>
 	<p></p>
-	<h4><%:Received Messages%></h4>
+	<h4><br/></h4>
 	<div class="table" width="100%">
 	<div class="tr"><div class="td left" width="33%"><%:Messages store in%>:</div><div class="td left"><%=location%></div></div>
 	<div class="tr"><div class="td left" width="33%"><%:Messages (Inbox / Maximum)%>:</div><div class="td left" id="usse"></div></div>
@@ -286,7 +286,7 @@ if (document.querySelectorAll('input[name="smsn"]:checked').length === document.
     	<td class="td left" width="7%"><input type='checkbox' id='allcheck' onclick='toggle(this);'/></td>
     	<td class="td left" width="10%"><strong><%:From%></strong></td>
     	<td class="td left" width="13%"><strong><%:Received%></strong></td>
-    	<td class="td center" width="60%" ><strong><%:Message%></strong></td>
+    	<td class="td left" width="60%" ><strong><%:Message%></strong></td>
 
  	</tr>
 	</table>
