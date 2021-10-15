@@ -176,7 +176,7 @@ msgid "Each line must have the following format: 'Contact name;Phone number'. Sa
 msgstr "每行必须具有以下格式：“联系人姓名；电话号码”。 保存到文件“/etc/config/phonebook.user”."
 
 msgid "User Phonebook"
-msgstr 电话簿"
+msgstr "电话簿"
 
 msgid "User USSD Codes"
 msgstr "用户 USSD 代码"
