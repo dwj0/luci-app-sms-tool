@@ -17,17 +17,14 @@ function index()
 	entry({"admin", "services", "sms"}, alias("admin", "services", "sms", "readsms"), translate("SMS Messages"), 20).acl_depends={ "luci-app-sms-tool" }
 	entry({"admin", "services", "sms", "readsms"},template("modem/readsms"),translate("Received Messages"), 10)
  	entry({"admin", "services", "sms", "sendsms"},template("modem/sendsms"),translate("Send Messages"), 20)
- 	entry({"admin", "services", "sms", "ussd"},template("modem/ussd"),translate("USSD Codes"), 30)
 	entry({"admin", "services", "sms", "atcommands"},template("modem/atcommands"),translate("AT Commands"), 40)
 	entry({"admin", "services", "sms", "smsconfig"},cbi("modem/smsconfig"),translate("Configuration"), 50)
 	entry({"admin", "services", "sms", "delete_one"}, call("delete_sms", smsindex), nil).leaf = true
 	entry({"admin", "services", "sms", "delete_all"}, call("delete_all_sms"), nil).leaf = true
-	entry({"admin", "services", "sms", "run_ussd"}, call("ussd"), nil).leaf = true
 	entry({"admin", "services", "sms", "run_at"}, call("at"), nil).leaf = true
 	entry({"admin", "services", "sms", "run_sms"}, call("sms"), nil).leaf = true
 	entry({"admin", "services", "sms", "readsim"}, call("slots"), nil).leaf = true
 	entry({"admin", "services", "sms", "countsms"}, call("count_sms"), nil).leaf = true
-	entry({"admin", "services", "sms", "user_ussd"}, call("userussd"), nil).leaf = true
 	entry({"admin", "services", "sms", "user_atc"}, call("useratc"), nil).leaf = true
 	entry({"admin", "services", "sms", "user_phonebook"}, call("userphb"), nil).leaf = true
 end
@@ -46,15 +43,6 @@ function delete_all_sms()
 	os.execute("sms_tool -d " .. devv .. " delete all")
 end
 
-function get_ussd()
-    local cursor = luci.model.uci.cursor()
-    if cursor:get("sms_tool", "general", "ussd") == "1" then
-        return " -R"
-    else
-        return ""
-    end
-end
-
 
 function get_pdu()
     local cursor = luci.model.uci.cursor()
@@ -62,24 +50,6 @@ function get_pdu()
         return " -r"
     else
         return ""
-    end
-end
-
-
-function ussd()
-    local devv = tostring(uci:get("sms_tool", "general", "ussdport"))
-
-	local ussd = get_ussd()
-	local pdu = get_pdu()
-
-    local ussd_code = http.formvalue("code")
-    if ussd_code then
-	    local odpall = io.popen("sms_tool -d " .. devv .. ussd .. pdu .. " ussd " .. ussd_code .." 2>&1")
-	    local odp =  odpall:read("*a")
-	    odpall:close()
-        http.write(tostring(odp))
-    else
-        http.write_json(http.formvalue())
     end
 end
 
@@ -160,33 +130,6 @@ function count_sms()
         local smscount = string.match(smsnum, '%d+')
         os.execute("echo " .. smscount .. " > /etc/config/sms_count")
     end
-end
-
-
-function uussd(rv)
-	local c = nixio.fs.access("/etc/config/ussd.user") and
-		io.popen("cat /etc/config/ussd.user")
-
-	if c then
-		for l in c:lines() do
-			local i = l
-			if i then
-				rv[#rv + 1] = {
-					usd = i
-				}
-			end
-		end
-		c:close()
-	end
-end
-
-
-
-function userussd()
-	local usd = { }
-	uussd(usd)
-	luci.http.prepare_content("application/json")
-	luci.http.write_json(usd)
 end
 
 

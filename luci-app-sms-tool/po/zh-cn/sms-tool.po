@@ -10,9 +10,6 @@ msgstr "接收信息"
 msgid "Send Messages"
 msgstr "发送信息"
 
-msgid "USSD"
-msgstr "USSD"
-
 msgid "From"
 msgstr "发件人"
 
@@ -27,9 +24,6 @@ msgstr "参数配置"
 
 msgid "Sample codes"
 msgstr "代码样本"
-
-msgid "Sending USSD codes"
-msgstr "发送 USSD 代码"
 
 msgid "Please enter phone number"
 msgstr "请输入手机号"
@@ -48,9 +42,6 @@ msgstr "回复"
 
 msgid "SMS sent sucessfully"
 msgstr "信息发送成功"
-
-msgid "Please enter a USSD code"
-msgstr "请输入 USSD 代码"
 
 msgid "Delete selected message(s)?"
 msgstr "删除选择的信息?"
@@ -76,9 +67,6 @@ msgstr "用于通过 sms_tool 发送信息的 Web UI."
 msgid "Web UI for receiveling messages via sms_tool."
 msgstr "用于通过 sms_tool 接收信息的 Web UI."
 
-msgid "Web UI for handling USSD codes via sms_tool."
-msgstr "用于通过 sms_tool 处理 USSD 代码的 Web UI."
-
 msgid "SIM card"
 msgstr "SIM卡"
 
@@ -100,9 +88,6 @@ msgstr "删除信息"
 msgid "Delete All"
 msgstr "删除所有"
 
-msgid "USSD Codes"
-msgstr "USSD 代码"
-
 msgid "Send to"
 msgstr "发送到"
 
@@ -121,17 +106,11 @@ msgstr "发送代码"
 msgid "SMS Settings"
 msgstr "SMS 设置"
 
-msgid "USSD Codes Settings"
-msgstr "USSD 代码设置"
-
 msgid "SMS Reading Port"
 msgstr "SMS 读取端口"
 
 msgid "SMS Sending Port"
 msgstr "SMS 发送端口"
-
-msgid "USSD Sending Port"
-msgstr "USSD 发送端口"
 
 msgid "Add Prefix to Phone Number"
 msgstr "为手机号码添加前缀"
@@ -147,18 +126,6 @@ msgstr "手机号码"
 
 msgid "Refresh SMS"
 msgstr "刷新信息"
-
-msgid "Sending USSD Code in plain text"
-msgstr "以纯文本形式发送 USSD 代码"
-
-msgid "Receive message without PDU decoding"
-msgstr "接收消息而无需 PDU 解码"
-
-msgid "Send the USSD code in plain text. Command is not being coded to the PDU."
-msgstr "以纯文本形式发送 USSD 代码。 命令没有被编码到 PDU."
-
-msgid "Receive and display the message without decoding it as a PDU."
-msgstr "接收并显示消息而不将其解码为 PDU."
 
 msgid "Explanation of number and prefix"
 msgstr "数字和前缀的解释"
@@ -177,12 +144,6 @@ msgstr "每行必须具有以下格式：“联系人姓名；电话号码”。
 
 msgid "User Phonebook"
 msgstr "电话簿"
-
-msgid "User USSD Codes"
-msgstr "用户 USSD 代码"
-
-msgid "Each line must have the following format: 'Code name;Code'. Save to file '/etc/config/ussd.user'."
-msgstr "每行必须具有以下格式：“代码名称；代码”。 保存到文件“/etc/config/ussd.user”."
 
 msgid "Notification Settings"
 msgstr "通知设置"
@@ -282,10 +243,4 @@ msgstr "二极管仅用于这些通知"
 
 msgid "Select 'No' in case the router has only one LED or if the LED is multi-tasking."
 msgstr "如果路由器只有一个 LED 或者 LED 是多任务处理，请选择“否”."
-
-msgid "No"
-msgstr "No"
-
-msgid "Yes"
-msgstr "Yes"
 

@@ -10,7 +10,6 @@ local http = require "luci.http"
 local sys = require "luci.sys"
 local uci = require "luci.model.uci".cursor()
 
-local USSD_FILE_PATH = "/etc/config/ussd.user"
 local PHB_FILE_PATH = "/etc/config/phonebook.user"
 local SMSC_FILE_PATH = "/etc/config/smscommands.user"
 local AT_FILE_PATH = "/etc/config/atcmds.user"
@@ -45,7 +44,6 @@ m = Map("sms_tool", translate("Configuration sms-tool"),
 s = m:section(NamedSection, 'general' , "sms_tool" , "<p>&nbsp;</p>" .. translate(""))
 s.anonymous = true
 s:tab("sms", translate("SMS Settings"))
-s:tab("ussd", translate("USSD Codes Settings"))
 s:tab("at", translate("AT Commands Settings"))
 s:tab("info", translate("Notification Settings"))
 
@@ -100,34 +98,6 @@ function ta.write(self, section, value)
     		fs.writefile(PHB_FILE_PATH, value)
 end
 
-this_taba = "ussd"
-
-dev3 = s:taboption(this_taba, Value, "ussdport", translate("USSD Sending Port"))
-if try_devices3 then
-local node
-for node in try_devices3 do
-dev3:value(node, node)
-end
-end
-
-local u = s:taboption(this_taba, Flag, "ussd", translate("Sending USSD Code in plain text"), translate("Send the USSD code in plain text. Command is not being coded to the PDU."))
-u.rmempty = false
-
-local p = s:taboption(this_taba, Flag, "pdu", translate("Receive message without PDU decoding"), translate("Receive and display the message without decoding it as a PDU."))
-p.rmempty = false
-
-local tb = s:taboption(this_taba, TextValue, "user_ussd", translate("User USSD Codes"), translate("Each line must have the following format: 'Code name;Code'. Save to file '/etc/config/ussd.user'."))
-tb.rows = 7
-tb.rmempty = true
-
-function tb.cfgvalue(self, section)
-    return fs.readfile(USSD_FILE_PATH)
-end
-
-function tb.write(self, section, value)
-    		value = value:gsub("\r\n", "\n")
-    		fs.writefile(USSD_FILE_PATH, value)
-end
 
 this_tabc = "at"
 

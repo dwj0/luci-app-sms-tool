@@ -18,7 +18,6 @@ rm -rf /tmp/testusb
 if [ $work != false ]; then
 uci set sms_tool.@sms_tool[0].readport=$work
 uci set sms_tool.@sms_tool[0].sendport=$work
-uci set sms_tool.@sms_tool[0].ussdport=$work
 uci set sms_tool.@sms_tool[0].atport=$work
 uci commit sms_tool
 fi
